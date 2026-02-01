@@ -24,7 +24,9 @@ export const fetchUserData = async (username) => {
     const response = await githubAPI.get(`/users/${username}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching user data:', error);
+    if (import.meta.env.DEV) {
+      console.error('Error fetching user data:', error);
+    }
     throw error;
   }
 };
@@ -57,7 +59,9 @@ export const searchUsers = async ({ username, location, minRepos, page = 1, perP
     
     return response.data;
   } catch (error) {
-    console.error('Error searching users:', error);
+    if (import.meta.env.DEV) {
+      console.error('Error searching users:', error);
+    }
     throw error;
   }
 };
@@ -72,7 +76,9 @@ export const getUserDetails = async (username) => {
     const response = await githubAPI.get(`/users/${username}`);
     return response.data;
   } catch (error) {
-    console.error('Error fetching user details:', error);
+    if (import.meta.env.DEV) {
+      console.error('Error fetching user details:', error);
+    }
     throw error;
   }
 };

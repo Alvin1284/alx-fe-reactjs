@@ -56,12 +56,12 @@ const Search = () => {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
       {/* Advanced Search Form */}
-      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 mb-8">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">Advanced User Search</h2>
+      <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-8 mb-8">
+        <h2 className="text-2xl font-bold mb-8 text-gray-800">Advanced User Search</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-          <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="space-y-6 mb-6">
+          <div className="flex flex-col">
+            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2" style={{display: 'block'}}>
               Username
             </label>
             <input
@@ -74,8 +74,8 @@ const Search = () => {
             />
           </div>
           
-          <div>
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
+          <div className="flex flex-col">
+            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2" style={{display: 'block'}}>
               Location
             </label>
             <input
@@ -88,8 +88,8 @@ const Search = () => {
             />
           </div>
           
-          <div>
-            <label htmlFor="minRepos" className="block text-sm font-medium text-gray-700 mb-2">
+          <div className="flex flex-col">
+            <label htmlFor="minRepos" className="block text-sm font-medium text-gray-700 mb-2" style={{display: 'block'}}>
               Minimum Repositories
             </label>
             <input
