@@ -8,6 +8,9 @@ const RecipeDetails = () => {
   const recipe = useRecipeStore(state =>
     state.recipes.find(recipe => recipe.id === parseInt(id))
   );
+  const favorites = useRecipeStore(state => state.favorites);
+  const addFavorite = useRecipeStore(state => state.addFavorite);
+  const removeFavorite = useRecipeStore(state => state.removeFavorite);
 
   if (!recipe) {
     return (
@@ -17,6 +20,16 @@ const RecipeDetails = () => {
       </div>
     );
   }
+
+  const isFavorite = favorites.includes(recipe.id);
+
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      removeFavorite(recipe.id);
+    } else {
+      addFavorite(recipe.id);
+    }
+  };
 
   return (
     <div style={{
@@ -38,7 +51,36 @@ const RecipeDetails = () => {
         borderRadius: '8px',
         boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
       }}>
-        <h1 style={{ marginTop: 0, color: '#333', borderBottom: '2px solid #eee', paddingBottom: '10px' }}>{recipe.title}</h1>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <h1 style={{ marginTop: 0, color: '#333', borderBottom: '2px solid #eee', paddingBottom: '10px', flex: 1 }}>
+            {recipe.title}
+          </h1>
+          <button
+            onClick={toggleFavorite}
+            style={{
+              background: 'none',
+              border: '2px solid #ffc107',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
+              fontSize: '24px',
+              cursor: 'pointer',
+              transition: 'transform 0.2s, background-color 0.2s',
+              backgroundColor: isFavorite ? '#fff3cd' : 'white'
+            }}
+            onMouseOver={(e) => {
+              e.target.style.transform = 'scale(1.1)';
+              e.target.style.backgroundColor = '#fff3cd';
+            }}
+            onMouseOut={(e) => {
+              e.target.style.transform = 'scale(1)';
+              e.target.style.backgroundColor = isFavorite ? '#fff3cd' : 'white';
+            }}
+            title={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          >
+            {isFavorite ? '⭐' : '☆'}
+          </button>
+        </div>
         <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#666' }}>{recipe.description}</p>
       </div>
       {/* Render EditRecipeForm and DeleteRecipeButton here */}

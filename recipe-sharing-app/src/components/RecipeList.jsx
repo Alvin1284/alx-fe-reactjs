@@ -8,6 +8,9 @@ const RecipeList = () => {
   const filteredRecipes = useRecipeStore((state) => state.filteredRecipes);
   const searchTerm = useRecipeStore((state) => state.searchTerm);
   const filterRecipes = useRecipeStore((state) => state.filterRecipes);
+  const favorites = useRecipeStore((state) => state.favorites);
+  const addFavorite = useRecipeStore((state) => state.addFavorite);
+  const removeFavorite = useRecipeStore((state) => state.removeFavorite);
 
   // Filter recipes whenever the search term or recipes change
   useEffect(() => {
@@ -16,6 +19,14 @@ const RecipeList = () => {
 
   // Display filtered recipes if there's a search term, otherwise show all recipes
   const displayedRecipes = searchTerm ? filteredRecipes : recipes;
+
+  const toggleFavorite = (recipeId) => {
+    if (favorites.includes(recipeId)) {
+      removeFavorite(recipeId);
+    } else {
+      addFavorite(recipeId);
+    }
+  };
 
   return (
     <div>
@@ -55,18 +66,38 @@ const RecipeList = () => {
               e.currentTarget.style.transform = 'translateY(0)';
               e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
             }}>
-              <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
-                <Link to={`/recipe/${recipe.id}`} style={{
-                  color: '#2196F3',
-                  textDecoration: 'none',
-                  fontSize: '20px'
-                }}>{recipe.title}</Link>
-              </h3>
-              <p style={{
-                margin: 0,
-                color: '#666',
-                lineHeight: '1.5'
-              }}>{recipe.description}</p>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <div style={{ flex: 1 }}>
+                  <h3 style={{ marginTop: 0, marginBottom: '10px' }}>
+                    <Link to={`/recipe/${recipe.id}`} style={{
+                      color: '#2196F3',
+                      textDecoration: 'none',
+                      fontSize: '20px'
+                    }}>{recipe.title}</Link>
+                  </h3>
+                  <p style={{
+                    margin: 0,
+                    color: '#666',
+                    lineHeight: '1.5'
+                  }}>{recipe.description}</p>
+                </div>
+                <button
+                  onClick={() => toggleFavorite(recipe.id)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    fontSize: '24px',
+                    cursor: 'pointer',
+                    marginLeft: '15px',
+                    transition: 'transform 0.2s'
+                  }}
+                  onMouseOver={(e) => e.target.style.transform = 'scale(1.2)'}
+                  onMouseOut={(e) => e.target.style.transform = 'scale(1)'}
+                  title={favorites.includes(recipe.id) ? "Remove from favorites" : "Add to favorites"}
+                >
+                  {favorites.includes(recipe.id) ? '⭐' : '☆'}
+                </button>
+              </div>
             </div>
           ))}
         </div>
