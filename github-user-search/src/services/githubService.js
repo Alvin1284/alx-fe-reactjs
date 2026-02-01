@@ -15,6 +15,21 @@ const githubAPI = axios.create({
 });
 
 /**
+ * Fetch user data from GitHub API
+ * @param {string} username - The GitHub username to search for
+ * @returns {Promise} - Promise with user data
+ */
+export const fetchUserData = async (username) => {
+  try {
+    const response = await githubAPI.get(`/users/${username}`);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user data:', error);
+    throw error;
+  }
+};
+
+/**
  * Search for GitHub users
  * @param {string} username - The username to search for
  * @returns {Promise} - Promise with user data

@@ -1,27 +1,30 @@
-import { useState } from 'react';
+import Search from './components/Search';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="app-header">
-        <h1>GitHub User Search</h1>
-        <p>Search for GitHub users and view their profiles</p>
+      <header className="app-header" style={{
+        backgroundColor: '#24292e',
+        color: 'white',
+        padding: '20px',
+        textAlign: 'center',
+        marginBottom: '30px'
+      }}>
+        <h1 style={{ margin: '0 0 10px 0' }}>GitHub User Search</h1>
+        <p style={{ margin: 0, fontSize: '16px' }}>Search for GitHub users and view their profiles</p>
       </header>
       
       <main className="app-main">
-        {/* Search component will go here */}
-        <div className="search-section">
-          <p>Search functionality coming soon...</p>
-        </div>
-        
-        {/* Results component will go here */}
-        <div className="results-section">
-          <p>Results will appear here...</p>
-        </div>
+        <Search />
       </main>
       
-      <footer className="app-footer">
+      <footer className="app-footer" style={{
+        textAlign: 'center',
+        padding: '20px',
+        marginTop: '40px',
+        color: '#586069'
+      }}>
         <p>Powered by GitHub API</p>
       </footer>
     </div>
