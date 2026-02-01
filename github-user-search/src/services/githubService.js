@@ -30,13 +30,36 @@ export const fetchUserData = async (username) => {
 };
 
 /**
- * Search for GitHub users
- * @param {string} username - The username to search for
- * @returns {Promise} - Promise with user data
+ * Advanced search for GitHub users with multiple criteria
+ * @param {Object} searchParams - Search parameters
+ * @param {string} searchParams.username - Username to search for
+ * @param {string} searchParams.location - Location filter
+ * @param {number} searchParams.minRepos - Minimum number of repositories
+ * @param {number} searchParams.page - Page number for pagination (default: 1)
+ * @param {number} searchParams.perPage - Results per page (default: 10)
+ * @returns {Promise} - Promise with search results
  */
-export const searchUsers = async (username) => {
+export const searchUsers = async ({ username, location, minRepos, page = 1, perPage = 10 }) => {
   try {
-    const response = await githubAPI.get(`/search/users?q=${username}`);
+    // Build the query string
+    let query = username ? username : '';
+    
+    if (location) {
+      query += ` location:${location}`;
+    }
+    
+    if (minRepos) {
+      query += ` repos:>=${minRepos}`;
+    }
+
+    const response = await githubAPI.get('/search/users', {
+      params: {
+        q: query,
+        page,
+        per_page: perPage
+      }
+    });
+    
     return response.data;
   } catch (error) {
     console.error('Error searching users:', error);
