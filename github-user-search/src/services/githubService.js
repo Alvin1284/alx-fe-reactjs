@@ -52,13 +52,8 @@ export const searchUsers = async ({ username, location, minRepos, page = 1, perP
       query += ` repos:>=${minRepos}`;
     }
 
-    const response = await githubAPI.get('/search/users', {
-      params: {
-        q: query,
-        page,
-        per_page: perPage
-      }
-    });
+    // Using GitHub Search API: https://api.github.com/search/users?q={query}
+    const response = await githubAPI.get(`/search/users?q=${query}&page=${page}&per_page=${perPage}`);
     
     return response.data;
   } catch (error) {
