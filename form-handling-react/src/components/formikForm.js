@@ -1,12 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { object, string } from 'yup';
+import * as Yup from 'yup';
 
 const FormikForm = () => {
   // Validation schema using Yup
-  const validationSchema = object({
-    username: string().required('Username is required').min(3, 'Username must be at least 3 characters'),
-    email: string().required('Email is required').email('Invalid email format'),
-    password: string().required('Password is required').min(6, 'Password must be at least 6 characters'),
+  const validationSchema = Yup.object({
+    username: Yup.string().required('Username is required').min(3, 'Username must be at least 3 characters'),
+    email: Yup.string().required('Email is required').email('Invalid email format'),
+    password: Yup.string().required('Password is required').min(6, 'Password must be at least 6 characters'),
   });
 
   // Initial form values
